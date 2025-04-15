@@ -31,6 +31,7 @@ on:
           - CYD2USB2.4_Inch
           - Waveshare_LCD
           - Crowtech_LCD
+          - JC3248W535
       screen_width:
         description: 'Screen Width (only for custom display)'
         required: false
