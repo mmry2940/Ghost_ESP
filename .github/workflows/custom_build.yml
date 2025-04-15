@@ -31,7 +31,7 @@ on:
           - CYD2USB2.4_Inch
           - Waveshare_LCD
           - Crowtech_LCD
-          - JC3248W535
+          - JC3248W535EN
       screen_width:
         description: 'Screen Width (only for custom display)'
         required: false
@@ -68,7 +68,7 @@ jobs:
         run: |
           # Board-Display Compatibility Check
           case "${{ github.event.inputs.display_type }}" in
-            "ESP32-S3-Cardputer"|"LillyGoTWatch_S3"|"Waveshare_LCD"|"Crowtech_LCD")
+            "ESP32-S3-Cardputer"|"LillyGoTWatch_S3"|"Waveshare_LCD"|"Crowtech_LCD"|"JC3248W535EN")
               if [ "${{ github.event.inputs.board_type }}" != "esp32s3" ]; then
                 echo "Error: ${{ github.event.inputs.display_type }} requires ESP32-S3 board type"
                 exit 1
@@ -148,6 +148,9 @@ jobs:
                 ;;
               "Crowtech_LCD")
                 cp "configs/sdkconfig.crowtech7inch" sdkconfig.defaults
+                ;;
+              "JC3248W535EN")
+                cp "configs/sdkconfig.JC3248W535EN" sdkconfig.defaults
                 ;;
             esac
           else
