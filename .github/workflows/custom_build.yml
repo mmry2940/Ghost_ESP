@@ -213,7 +213,7 @@ jobs:
           cd ..
 
       - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-page-artifact@v3
         with:
           name: ghost_esp_${{ github.event.inputs.board_type }}_${{ github.event.inputs.display_type }}
           path: ghost_esp_${{ github.event.inputs.board_type }}_${{ github.event.inputs.display_type }}.zip
