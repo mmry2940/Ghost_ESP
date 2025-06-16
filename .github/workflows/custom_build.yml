@@ -83,13 +83,12 @@ jobs:
           esac
 
           # Flash Size Validation
-          case "$DISPLAY_MODEL" in
-            "Waveshare_LCD"|"Crowtech_LCD")
-              if [ "${{ github.event.inputs.flash_size }}" == "4MB" ]; then
-                echo "::warning::7-inch displays are recommended to use 8MB or larger flash size"
-              fi
-              ;;
-          esac
+          if [ "$DISPLAY_MODEL" == "Waveshare_LCD" ] || [ "$DISPLAY_MODEL" == "Crowtech_LCD" ] || [ "$DISPLAY_MODEL" == "JC3248W535EN" ]; then
+            if [ "$FLASH_SIZE" == "4MB" ]; then
+              echo "Error: 7-inch displays require 8MB or larger flash size."
+              exit 1
+            fi
+          fi
 
           # Custom Display Validation
           if [ "$DISPLAY_MODEL" == "custom" ]; then
