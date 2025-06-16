@@ -67,23 +67,23 @@ jobs:
       - name: Validate Configuration
         run: |
           # Board-Display Compatibility Check
-          case "${{ github.event.inputs.display_type }}" in
+          case "$DISPLAY_MODEL" in
             "ESP32-S3-Cardputer"|"LillyGoTWatch_S3"|"Waveshare_LCD"|"Crowtech_LCD"|"JC3248W535EN")
               if [ "$BOARD_TYPE" != "esp32s3" ]; then
-                echo "Error: ${{ github.event.inputs.display_type }} requires ESP32-S3 board type"
+                echo "Error: $DISPLAY_MODEL requires ESP32-S3 board type"
                 exit 1
               fi
               ;;
             "MarauderV4_FlipperHub"|"MarauderV6_AwokDual"|"AwokMini"|"CYD2USB"|"CYDMicroUSB"|"CYDDualUSB"|"CYD2USB2.4_Inch")
-              if [ "${{ github.event.inputs.board_type }}" != "esp32" ]; then
-                echo "Error: ${{ github.event.inputs.display_type }} requires ESP32 board type"
+              if [ "$BOARD_TYPE" != "esp32" ]; then
+                echo "Error: $DISPLAY_MODEL requires ESP32 board type"
                 exit 1
               fi
               ;;
           esac
 
           # Flash Size Validation
-          case "${{ github.event.inputs.display_type }}" in
+          case "$DISPLAY_MODEL" in
             "Waveshare_LCD"|"Crowtech_LCD")
               if [ "${{ github.event.inputs.flash_size }}" == "4MB" ]; then
                 echo "::warning::7-inch displays are recommended to use 8MB or larger flash size"
@@ -92,7 +92,7 @@ jobs:
           esac
 
           # Custom Display Validation
-          if [ "${{ github.event.inputs.display_type }}" == "custom" ]; then
+          if [ "$DISPLAY_MODEL" == "custom" ]; then
             if [ -z "$SCREEN_WIDTH" ] || [ -z "$SCREEN_HEIGHT" ]; then
               echo "Error: Screen width and height are required for custom display configuration"
               exit 1
