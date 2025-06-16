@@ -189,7 +189,10 @@ jobs:
           BOOTLOADER_URL="https://cdn.spookytools.com/bootloaders/${{ github.event.inputs.board_type }}.bin"
           BOOTLOADER_PATH="build/bootloader.bin"
           echo "Downloading bootloader from $BOOTLOADER_URL..."
-          wget https://cdn.spookytools.com/bootloaders/esp32s3.bin build/booloader.bin
+          wget -O build/bootloader.bin "$BOOTLOADER_URL" || {
+            echo "Error: Unable to download bootloader."
+            exit 1
+          }
           curl -L -o "$BOOTLOADER_PATH" "$BOOTLOADER_URL" || {
             echo "Warning: Could not download bootloader, continuing with build..."
             rm -f "$BOOTLOADER_PATH"
