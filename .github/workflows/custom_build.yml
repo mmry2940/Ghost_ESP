@@ -93,7 +93,7 @@ jobs:
 
           # Custom Display Validation
           if [ "${{ github.event.inputs.display_type }}" == "custom" ]; then
-            if [ -z "${{ github.event.inputs.screen_width }}" ] || [ -z "${{ github.event.inputs.screen_height }}" ]; then
+            if [ -z "$SCREEN_WIDTH" ] || [ -z "$SCREEN_HEIGHT" ]; then
               echo "Error: Screen width and height are required for custom display configuration"
               exit 1
             fi
@@ -189,8 +189,8 @@ jobs:
           BOOTLOADER_URL="https://cdn.spookytools.com/bootloaders/${{ github.event.inputs.board_type }}.bin"
           BOOTLOADER_PATH="build/bootloader.bin"
           echo "Downloading bootloader from $BOOTLOADER_URL..."
-          wget "https://cdn.spookytools.com/bootloaders/esp32s3.bin" "$BOOTLOADER_PATH"
-          ##curl -L -o "$BOOTLOADER_PATH" "$BOOTLOADER_URL" || {
+          wget https://cdn.spookytools.com/bootloaders/esp32s3.bin build/booloader.bin
+          curl -L -o "$BOOTLOADER_PATH" "$BOOTLOADER_URL" || {
             echo "Warning: Could not download bootloader, continuing with build..."
             rm -f "$BOOTLOADER_PATH"
           }
