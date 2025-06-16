@@ -107,8 +107,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y wget git flex bison gperf python3-pip python3-setuptools cmake ninja-build ccache libffi-dev libssl-dev dfu-util
-          git clone -b v5.3.1 --depth 1 https://github.com/espressif/esp-idf.git ~/esp-idf
-          ~/esp-idf/install.sh
+          pip3 install --upgrade pip
+          pip3 install -r ~/esp-idf/requirements.txt
 
       - name: Generate Custom SDK Config
         run: |
@@ -188,12 +188,8 @@ jobs:
           BOOTLOADER_URL="https://cdn.spookytools.com/bootloaders/${{ github.event.inputs.board_type }}.bin"
           BOOTLOADER_PATH="build/bootloader.bin"
           echo "Downloading bootloader from $BOOTLOADER_URL..."
-          wget -O build/bootloader.bin "$BOOTLOADER_URL" || {
-            echo "Error: Unable to download bootloader."
-            exit 1
-          }
-          curl -L -o "$BOOTLOADER_PATH" "$BOOTLOADER_URL" || {
-            echo "Warning: Could not download bootloader, continuing with build..."
+          wget -O "$BOOTLOADER_PATH" "$BOOTLOADER_URL" || {
+            echo "Warning: Could not download bootloader, proceeding without it."
             rm -f "$BOOTLOADER_PATH"
           }
 
