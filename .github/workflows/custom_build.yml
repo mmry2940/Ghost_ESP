@@ -108,6 +108,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y wget git flex bison gperf python3-pip python3-setuptools cmake ninja-build ccache libffi-dev libssl-dev dfu-util
           pip3 install --upgrade pip
+          # Clone ESP-IDF repository to ensure requirements.txt exists
+          git clone --depth 1 https://github.com/espressif/esp-idf.git ~/esp-idf
           pip3 install -r ~/esp-idf/requirements.txt
 
       - name: Generate Custom SDK Config
