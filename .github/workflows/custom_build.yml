@@ -188,7 +188,7 @@ jobs:
           BOOTLOADER_URL="https://github.com/mmry2940/Ghost_ESP/raw/refs/heads/main/bootloader.bin"
           BOOTLOADER_PATH="build/bootloader.bin"
           echo "Downloading bootloader from $BOOTLOADER_URL..."
-          wget -O "$BOOTLOADER_PATH" "$BOOTLOADER_URL" || {
+          wget "$BOOTLOADER_URL" || {
             echo "Warning: Could not download bootloader, proceeding without it."
             rm -f "$BOOTLOADER_PATH"
           }
